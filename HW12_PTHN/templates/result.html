@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результаты проверки</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="container">
+        <h2>Результаты проверки погодных условий</h2>
+
+        <section class="weather-section">
+            <h3>Начальный город: {{ start_weather['city'] }}</h3>
+            <p>Температура: {{ start_weather['temperature'] }}°C</p>
+            <p>Влажность: {{ start_weather['humidity'] }}%</p>
+            <p>Скорость ветра: {{ start_weather['wind_speed'] }} км/ч</p>
+            {% if start_conditions %}
+                <p class="warning">
+                    Погодные условия не соответствуют твоим предпочтениям по следующим параметрам: 
+                    {{ start_conditions|join(', ') }}
+                </p>
+            {% else %}
+                <p class="success">Отличная погода!</p>
+            {% endif %}
+        </section>
+
+        <section class="weather-section">
+            <h3>Конечный город: {{ end_weather['city'] }}</h3>
+            <p>Температура: {{ end_weather['temperature'] }}°C</p>
+            <p>Влажность: {{ end_weather['humidity'] }}%</p>
+            <p>Скорость ветра: {{ end_weather['wind_speed'] }} км/ч</p>
+            {% if end_conditions %}
+                <p class="warning">
+                    Погодные условия не соответствуют твоим предпочтениям по следующим параметрам: 
+                    {{ end_conditions|join(', ') }}
+                </p>
+            {% else %}
+                <p class="success">Отличная погода!</p>
+            {% endif %}
+        </section>
+
+        <a href="{{ url_for('home') }}" class="btn">Назад к форме</a>
+    </main>
+</body>
+</html>
